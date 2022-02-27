@@ -59,7 +59,7 @@ def extract_data(urls):
 
 
 def retrieve_data():
-    data = requests.get(f'{DB}/regalia').text or '{}}'
+    data = requests.get(f'{DB}/regalia').text or '{}'
     return json.loads(data)
 
 
