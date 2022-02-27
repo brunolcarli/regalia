@@ -1,15 +1,19 @@
 from threading import Thread
-from flask import Flask
+from flask import Flask, jsonify
+from flask_cors import CORS, cross_origin
 from core.scrapper import retrieve_data, scrap
 
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/regalia": {"origins": "*"}})
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
-@app.route("/regalia")
+@app.route("/regalia", methods=['GET'])
+@cross_origin(origin='*', headers=['Content-Type',])
 def regalia():
     data = retrieve_data()
-    return data
+    return jsonify(data)
 
 
 def run():
