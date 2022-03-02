@@ -2,6 +2,7 @@ version: '3'
 
 services:
   regalia:
+    restart: on-failure
     build: .    
     image: regalia:devel
     restart: on-failure
@@ -15,13 +16,14 @@ services:
       - "9078:9078"
 
   scrapper:
-  build: .
-  image: regalia:devel
-  env_file: regalia/environment/regalia_env
-  container_name: regalia_scrapper
-  command: make scrap
-  dependes_on:
-    - regalia
+    restart: on-failure
+    build: .
+    image: regalia:devel
+    env_file: regalia/environment/regalia_env
+    container_name: regalia_scrapper
+    command: make scrap
+    dependes_on:
+      - regalia
 
 volumes:
   static_data:
