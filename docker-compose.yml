@@ -15,9 +15,13 @@ services:
       - "9078:9078"
 
   scrapper:
-    env_file: regalia/environment/regalia_env
-    container_name: regalia_scrapper
-    command: make scrap
+  build: .
+  image: regalia:devel
+  env_file: regalia/environment/regalia_env
+  container_name: regalia_scrapper
+  command: make scrap
+  dependes_on:
+    - regalia
 
 volumes:
   static_data:
