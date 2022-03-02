@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  regalia:
+    build: .    
+    image: regalia:devel
+    restart: on-failure
+    container_name: regalia_container
+    command: gunicorn -w 3 regalia.wsgi:application -b :7890
+    env_file: regalia/environment/regalia_env
+    volumes:
+      - .:/app
+      - static_data:/app/static
+    ports:
+      - "9078:9078"
+
+  scrapper:
+    env_file: regalia/environment/regalia_env
+    container_name: regalia_scrapper
+    command: make scrap
+
+volumes:
+  static_data:
