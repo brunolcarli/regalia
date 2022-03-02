@@ -1,10 +1,13 @@
 from datetime import datetime
-import json
 import requests
+import sys
 from time import sleep
 from bs4 import BeautifulSoup
-from core.utils import get_random_user_agent
-from settings import DB, URL
+from bmw.utils import get_random_user_agent
+from bmw.models import BMWOffer
+from django.conf import settings
+
+URL=settings.OLX_TARGET_URL
 
 
 def get_offers(url):
@@ -59,21 +62,36 @@ def extract_data(urls):
 
 
 def retrieve_data():
-    data = requests.get(f'{DB}/regalia').text or '{}'
-    return json.loads(data)
+    raise Exception('NOT IMPLEMENTED :(')
 
 
 def store_data(data):
-    previous = retrieve_data()
-    previous[str(datetime.now().date())] = data
-    data = json.dumps(previous)
-    return requests.post(DB, data={'regalia': data})
+    # previous = retrieve_data()
+    for content in data:
+        try:
+            offer, _ = BMWOffer.objects.get_or_create(
+                url=content.get('url'),
+                price=content.get('price'),
+                car_model=content.get('model'),
+                car_year=content.get('year'),
+                km=content.get('km'),
+                color=content.get('color'),
+                seller_name=content.get('seller_name')
+            )
+            offer.save()
+        except Exception as e:
+            offer = None
+            continue
+
+    return BMWOffer.objects.all().count()
 
 
-def scrap():
+def crawler():
     while True:
+        sys.stdout.write(f'Crawling {URL} | {str(datetime.now())}\n')
         offers = get_offers(URL)
         urls = get_offer_urls(offers)
         data = extract_data(urls)
-        store_data(data)
+        count = store_data(data)
+        sys.stdout.write(f'Total objects count {count} | {str(datetime.now())}\n')
         sleep(36000)
