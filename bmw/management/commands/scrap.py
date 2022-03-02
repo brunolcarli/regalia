@@ -16,7 +16,7 @@ class Command(BaseCommand):
         ...
 
     def handle(self, *args, **options):
-        # process = Thread(target=crawler)
-        # process.start()
-        crawler()
-        # LOGGER.info('Started process %s', str(process))
+        process = Thread(target=crawler)
+        process.start()
+        # crawler()
+        LOGGER.info('Started process %s', str(process))
