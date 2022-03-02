@@ -128,3 +128,4 @@ GRAPHENE = {
 }
 
 OLX_TARGET_URL=os.environ.get('OLX_TARGET_URL')
+ENV_REF=os.environ.get('ENV_REF')

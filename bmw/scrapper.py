@@ -7,6 +7,7 @@ from bmw.utils import get_random_user_agent
 from bmw.models import BMWOffer
 from django.conf import settings
 
+
 URL=settings.OLX_TARGET_URL
 
 
