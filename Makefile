@@ -1,5 +1,5 @@
 install:
-	pip install -r regalia/requirements/common.txt
+	pip install -r regalia/requirements/${ENV_REF}.txt
 
 run:
 	python manage.py runserver 0.0.0.0:7890 --settings=regalia.settings.${ENV_REF}
