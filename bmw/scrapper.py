@@ -77,7 +77,8 @@ def store_data(data):
                 car_year=content.get('year'),
                 km=content.get('km'),
                 color=content.get('color'),
-                seller_name=content.get('seller_name')
+                seller_name=content.get('seller_name'),
+                power=content.get('power')
             )
             offer.save()
         except Exception as e:
