@@ -4,8 +4,6 @@ services:
   regalia:
     restart: on-failure
     build: .    
-    image: regalia:devel
-    restart: on-failure
     container_name: regalia_container
     command: gunicorn -w 3 regalia.wsgi:application -b :7890
     env_file: regalia/environment/regalia_env
