@@ -5,7 +5,7 @@ run:
 	python manage.py runserver 0.0.0.0:7890 --settings=regalia.settings.${ENV_REF}
 
 wsgi:
-	gunicorn -w 3 regalia.wsgi:application -b :7890
+	gunicorn -w 3 regalia.wsgi:application -b :8000
 
 migrate:
 	python manage.py makemigrations --settings=regalia.settings.${ENV_REF}
@@ -14,7 +14,7 @@ migrate:
 start_scrapping:
 	python manage.py scrap --settings=regalia.settings.${ENV_REF}
 
-target: start_scrapping wsgi
+target: start_scrapping run
 
 pipe:
 	make install
