@@ -1,3 +1,6 @@
+"""
+This module contains the main scrapper for the BMW 320i data from OLX.
+"""
 from datetime import datetime
 import requests
 import sys
