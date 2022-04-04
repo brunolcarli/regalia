@@ -1,6 +1,7 @@
 """
 Module for insertion of more scrappers to extend or enhance the API.
 """
+from time import sleep
 import requests
 from bs4 import BeautifulSoup
 from gas.models import GasPrice
@@ -31,3 +32,10 @@ class GasCrawler:
         gas_record.save()
 
         return GasPrice.objects.all().count()
+
+    @staticmethod
+    def crawl():
+        while True:
+            price = GasCrawler.get_price()
+            GasCrawler.store_data(price, 'Shell')
+            sleep(25200)

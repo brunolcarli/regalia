@@ -1,6 +1,7 @@
 import logging
 from django.core.management.base import BaseCommand
-from bmw.scrapper import crawler
+from gas.crawlers import GasCrawler
+
 
 LOGGER = logging.getLogger(__name__)
 
@@ -11,5 +12,5 @@ class Command(BaseCommand):
         ...
 
     def handle(self, *args, **options):
-        LOGGER.info('Staring scrapping crawler')
-        crawler()
+        LOGGER.info('Staring Gas crawler')
+        GasCrawler.crawl()
