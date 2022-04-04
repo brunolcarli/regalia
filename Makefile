@@ -20,3 +20,6 @@ pipe:
 	make install
 	make migrate
 	make -j2 target
+
+shell:
+	python manage.py shell --settings=regalia.settings.${ENV_REF}
