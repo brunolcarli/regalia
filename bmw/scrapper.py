@@ -99,4 +99,4 @@ def crawler():
         data = extract_data(urls)
         count = store_data(data)
         sys.stdout.write(f'Total objects count {count} | {str(datetime.now())}\n')
-        sleep(36000)
+        sleep(3600*2)
