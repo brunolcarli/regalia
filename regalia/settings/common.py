@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'corsheaders',
     'bmw',
+    'gas'
 ]
 
 MIDDLEWARE = [
@@ -140,5 +141,6 @@ GRAPHENE = {
     'SCHEMA': 'regalia.schema.schema',
 }
 
-OLX_TARGET_URL=os.environ.get('OLX_TARGET_URL')
-ENV_REF=os.environ.get('ENV_REF')
+OLX_TARGET_URL = os.environ.get('OLX_TARGET_URL')
+GASPASS_TARGET_URL = os.environ.get('GASPASS_TARGET_URL')
+ENV_REF = os.environ.get('ENV_REF')

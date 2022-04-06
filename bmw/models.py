@@ -10,3 +10,4 @@ class BMWOffer(models.Model):
     power = models.CharField(max_length=50, null=True)
     color = models.CharField(max_length=50, null=True)
     seller_name = models.CharField(max_length=250, null=True)
+    date_reference = models.DateField(auto_now_add=True, null=True)
