@@ -49,7 +49,19 @@ class GasPriceType(graphene.ObjectType):
 
 
 class Query(graphene.ObjectType):
-    gas_prices = graphene.List(GasPriceType)
+    gas_prices = graphene.List(
+        GasPriceType,
+        region=graphene.String(description='Filter by region'),
+        datetime_reference=graphene.Date(
+            description='Filter by exact date'
+        ),
+        datetime_reference__lte=graphene.Date(
+            description='Filter by date less than or equal a date'
+        ),
+        datetime_reference__gte=graphene.Date(
+            description='Filter by date greater than or equal a date'
+        )
+    )
 
     def resolve_gas_prices(self, info, **kwargs):
         return GasPrice.objects.filter(**kwargs)
