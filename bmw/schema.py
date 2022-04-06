@@ -12,6 +12,7 @@ class BMWOfferType(graphene.ObjectType):
         power = graphene.String()
         color = graphene.String()
         seller_name = graphene.String()
+        date_reference = graphene.Date()
 
 
 class Query(graphene.ObjectType):
