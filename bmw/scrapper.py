@@ -41,10 +41,14 @@ def get_offer_content(url):
     price = html_parser.find(class_='sc-1leoitd-0 cIfjkh sc-ifAKCX cmFKIN')
     details = [i.text.lower() for i in data]
 
-    extracted = {
-        'url': url,
-        'price': float(price.text.split('$')[1])
-    }
+    try:
+        extracted = {
+            'url': url,
+            'price': float(price.text.split('$')[1])
+        }
+    except AttributeError:
+        print('Failed getting car price on : ', url)
+        return {}
     try:
         for detail in details:
             if 'modelo' in detail:
