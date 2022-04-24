@@ -45,18 +45,20 @@ def get_offer_content(url):
         'url': url,
         'price': float(price.text.split('$')[1])
     }
-
-    for detail in details:
-        if 'modelo' in detail:
-            extracted['model'] = detail.split('modelo')[1].upper()
-        elif 'ano' in detail:
-            extracted['year'] = int(detail.split('ano')[1])
-        elif 'quilometragem' in detail:
-            extracted['km'] = int(detail.split('quilometragem')[1])
-        elif 'motor' in detail:
-            extracted['power'] = detail.split('motor')[1]
-        elif 'cor' in detail:
-            extracted['color'] = detail.split('cor')[1]
+    try:
+        for detail in details:
+            if 'modelo' in detail:
+                extracted['model'] = detail.split('modelo')[1].upper()
+            elif 'ano' in detail:
+                extracted['year'] = int(detail.split('ano')[1])
+            elif 'quilometragem' in detail:
+                extracted['km'] = int(detail.split('quilometragem')[1])
+            elif 'motor' in detail:
+                extracted['power'] = detail.split('motor')[1]
+            elif 'cor' in detail:
+                extracted['color'] = detail.split('cor')[1]
+    except:
+        print('Failed to xtract data from url ', url)
     
     return extracted
 
@@ -85,7 +87,7 @@ def store_data(data):
             )
             offer.save()
         except Exception as e:
-            offer = None
+            print('Failed saving offer with content: ', content)
             continue
 
     return BMWOffer.objects.all().count()
