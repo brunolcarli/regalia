@@ -46,7 +46,7 @@ def get_offer_content(url):
             'url': url,
             'price': float(price.text.split('$')[1])
         }
-    except AttributeError:
+    except (AttributeError, IndexError):
         print('Failed getting car price on : ', url)
         return {}
     try:
