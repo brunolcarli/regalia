@@ -19,6 +19,12 @@ class HouseOfferType(graphene.ObjectType):
     district = graphene.String()
     address = graphene.String()
     date_reference = graphene.Date()
+    area = graphene.Int()
+
+    def resolve_area(self, info, **kwargs):
+        if self.useful_area:
+            return int(self.useful_area.split('m')[0])
+        return None
 
 
 class Query(graphene.ObjectType):
