@@ -11,5 +11,5 @@ class Command(BaseCommand):
         ...
 
     def handle(self, *args, **options):
-        LOGGER.info('Staring scrapping crawler')
+        LOGGER.info('Starting BMW scraper crawler')
         crawler()
