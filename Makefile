@@ -17,12 +17,15 @@ start_scrapping:
 start_gas_scrapping:
 	python manage.py gas_scrap --settings=regalia.settings.${ENV_REF}
 
-target: start_scrapping start_gas_scrapping run
+start_house_scrapping:
+	python manage.py house_scrap --settings=regalia.settings.${ENV_REF}
+
+target: start_scrapping start_gas_scrapping start_house_scrapping run
 
 pipe:
 	make install
 	make migrate
-	make -j3 target
+	make -j4 target
 
 shell:
 	python manage.py shell --settings=regalia.settings.${ENV_REF}
