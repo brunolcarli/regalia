@@ -18,18 +18,20 @@ def get_offers(url):
     response = requests.get(url, headers={'User-Agent': get_random_user_agent()})
     html_parser = BeautifulSoup(response.content, "html.parser")
 
-    return html_parser.find_all(class_='sc-1fcmfeb-2 fvbmlV')
+    return html_parser.find_all(class_='sc-12rk7z2-0 bjnzhV')
 
 
 def get_offer_urls(offers):
     urls = []
     for offer in offers:
+
         html_parser = BeautifulSoup(str(offer), "html.parser")
         try:
             urls.append(html_parser.find("a").attrs['href'])
         except AttributeError:
+            print(f'Failed extracting URL from {str(offer)}')
             continue
-
+    print('URLS found: ', len(urls))
     return urls
 
 
@@ -37,10 +39,9 @@ def get_offer_content(url):
     response = requests.get(url, headers={'User-Agent': get_random_user_agent()})
     html_parser = BeautifulSoup(response.content, "html.parser")
 
-    data = html_parser.find_all(class_='sc-hmzhuo eNZSNe sc-jTzLTM iwtnNi')
-    price = html_parser.find(class_='sc-1leoitd-0 cIfjkh sc-ifAKCX cmFKIN')
+    data = html_parser.find_all(class_='ad__duvuxf-0 ad__h3us20-0 fcMYXB')
+    price = html_parser.find(class_='ad__sc-1leoitd-0 bJHaGt sc-cooIXK cXlgiS') or html_parser.find(class_='ad__sc-1wimjbb-1 hoHpcC sc-cooIXK cXlgiS')
     details = [i.text.lower() for i in data]
-
     try:
         extracted = {
             'url': url,
@@ -48,6 +49,7 @@ def get_offer_content(url):
         }
     except (AttributeError, IndexError):
         print('Failed getting car price on : ', url)
+        print(price)
         return {}
     try:
         for detail in details:
